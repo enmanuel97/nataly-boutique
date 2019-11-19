@@ -9,10 +9,10 @@ public class ProyectoFinal
 
     public static void main(String[] args)
     {
-        System.out.println("#####################################################################");
-        System.out.println("             Proyecto Final de Lenguaje de Programacion 2           ");
-        System.out.println(" Desarrollador por Jesus Enmanuel De La Cruz | Matricula: 100367458 ");
-        System.out.println("#####################################################################\n");
+        System.out.println("######################################################################");
+        System.out.println("             Proyecto Final de Lenguaje de Programacion 2            ");
+        System.out.println("  Desarrollado por Jesus Enmanuel De La Cruz | Matricula: 100367458  ");
+        System.out.println("######################################################################\n");
         switchOptions(printMenu(false));
     }
 
@@ -46,8 +46,8 @@ public class ProyectoFinal
         int option = 0;
         do {
             System.out.println("--------Menu Principal--------");
-            System.out.println("|1-Agregar clientes          |");
-            System.out.println("|2-Agregar articulos         |");
+            System.out.println("|1-Administrar mis Clientes  |");
+            System.out.println("|2-Administrar mis Articulos |");
             System.out.println("|3-Realizar Pedido           |");
             System.out.println("|4-Salir                     |");
             System.out.println("------------------------------");
@@ -67,7 +67,8 @@ public class ProyectoFinal
         Scanner cn = new Scanner(System.in);
         switch(opcion)
         {
-            case 1:
+            case 1://Crear Cliente
+                cls();
                 boolean validate = false;
                 int numeroCliente;
                 String nombre;
@@ -105,7 +106,7 @@ public class ProyectoFinal
                 switchOptionsClients(printClientsMenu(true));
             break;
 
-            case 2:
+            case 2://Consultar Cliente
                 if(myClients.size() > 0)
                 {
                     int nCliente;
@@ -130,13 +131,28 @@ public class ProyectoFinal
                 }
                 else
                 {
+                    cls();
                     System.out.println("No tienes ningun cliente agregado");
+                    int addOneC;
+                    do{
+                        System.out.println("Deseas Agregar uno? (1-Si | 2-No)");
+                        addOneC = Integer.parseInt(cn.nextLine());
+                    }while(addOneC < 1 || addOneC > 2);
+
+                    if(addOneC == 1)
+                    {
+                        switchOptionsClients(1);//agregar un cliente
+                    }
+                    else
+                    {
+                        switchOptionsClients(printClientsMenu(true));
+                    }
                 }
 
                 switchOptionsClients(printClientsMenu(false));
             break;
 
-            case 3:
+            case 3://Modificar Cliente
                 if(myClients.size() > 0)
                 {
                     int nClienteM;
@@ -168,11 +184,26 @@ public class ProyectoFinal
                 }
                 else
                 {
+                    cls();
                     System.out.println("No tienes ningun cliente agregado");
+                    int addOneM;
+                    do{
+                        System.out.println("Deseas Agregar uno? (1-Si | 2-No)");
+                        addOneM = Integer.parseInt(cn.nextLine());
+                    }while(addOneM < 1 || addOneM > 2);
+
+                    if(addOneM == 1)
+                    {
+                        switchOptionsClients(1);//agregar un cliente
+                    }
+                    else
+                    {
+                        switchOptionsClients(printClientsMenu(true));
+                    }
                 }
             break;
 
-            case 4:
+            case 4://Eliminar Cliente
                 if(myClients.size() > 0)
                 {
                     int nClienteD;
@@ -198,22 +229,54 @@ public class ProyectoFinal
 
                 }else
                 {
+                    cls();
                     System.out.println("No tienes ningun cliente agregado");
+                    int addOneE;
+                    do{
+                        System.out.println("Deseas Agregar uno? (1-Si | 2-No)");
+                        addOneE = Integer.parseInt(cn.nextLine());
+                    }while(addOneE < 1 || addOneE > 2);
+
+                    if(addOneE == 1)
+                    {
+                        switchOptionsClients(1);//agregar un cliente
+                    }
+                    else
+                    {
+                        switchOptionsClients(printClientsMenu(true));
+                    }
                 }
 
                 switchOptionsClients(printClientsMenu(false));
                 break;
 
-            case 5:
+            case 5://Consultar Todos los clientes
                 if(myClients.size() > 0)
                 {
+                    System.out.println("Todos mis clientes");
                     for(int i = 0; i <= myClients.size() - 1; i++)
                     {
                         System.out.println(myClients.get(i).getNombre());
                     }
-                }else
+                }
+                else
                 {
+                    cls();
                     System.out.println("No tienes ningun cliente agregado");
+                    int addOneA;
+                    do{
+                        System.out.println("Deseas Agregar uno? (1-Si | 2-No)");
+                        addOneA = Integer.parseInt(cn.nextLine());
+                    }while(addOneA < 1 || addOneA > 2);
+
+                    if(addOneA == 1)
+                    {
+                        switchOptionsClients(1);//agregar un cliente
+                    }
+                    else
+                    {
+                        switchOptionsClients(printClientsMenu(true));
+                    }
                 }
 
                 switchOptionsClients(printClientsMenu(false));
@@ -243,13 +306,13 @@ public class ProyectoFinal
             System.out.println("|5-Ver todos los clientes    |");
             System.out.println("|6-Salir                     |");
             System.out.println("------------------------------");
-            option = cn.nextInt();
-            if(option < 1 || option > 5)
+            option = Integer.parseInt(cn.nextLine());;
+            if(option < 1 || option > 6)
             {
                 cls();
                 System.out.println("Opcion no disponible");
             }
-        }while(option > 4);
+        }while(option > 6);
 
         return option;
     }
