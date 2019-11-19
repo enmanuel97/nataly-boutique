@@ -23,13 +23,36 @@ public class Clientes
         return this.nombre;
     }
 
+    public void setNombre(String pNombre)
+    {
+        this.nombre = pNombre;
+    }
+
     public String getDireccion()
     {
         return this.direccion;
     }
 
+    public void setDireccion(String pDireccion)
+    {
+        this.direccion = pDireccion;
+    }
+
     public String getTelefono()
     {
         return this.telefono;
+    }
+
+    public void setTelefono(String pTelefono)
+    {
+        this.telefono = pTelefono;
+    }
+
+    public void displayAllInformation()
+    {
+        System.out.println("# de Cliente: " + this.numeroCliente);
+        System.out.println("Nombre: " + this.nombre);
+        System.out.println("Direccion: " + this.direccion);
+        System.out.println("Telefono: " + this.telefono);
     }
 }
