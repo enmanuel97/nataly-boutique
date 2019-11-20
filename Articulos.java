@@ -6,8 +6,8 @@ public class Articulos
 
     public Articulos(int pNumeroArticulo, double pPrecio, int pCantidadExistencia)
     {
-        this.numeroArticulo = pNumeroArticulo;
-        this.precio = pPrecio;
+        this.numeroArticulo     = pNumeroArticulo;
+        this.precio             = pPrecio;
         this.cantidadExistencia = pCantidadExistencia;
     }
 

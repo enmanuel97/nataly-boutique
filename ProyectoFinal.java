@@ -6,7 +6,7 @@ import java.io.IOException;
 public class ProyectoFinal
 {
     public static List<Clientes> myClients = new ArrayList<Clientes>();
-    public static List<Articulos> myProducts = new ArrayList<>();
+    public static List<Articulos> myProducts = new ArrayList<Articulos>();
 
     public static void main(String[] args)
     {
@@ -56,7 +56,7 @@ public class ProyectoFinal
 			if(option < 1 || option > 4)
 			{
                 cls();
-				System.out.println("Opcion no disponible");
+				System.out.println("Opcion no disponible\n");
 			}
         }while(option > 4);
 
@@ -299,7 +299,6 @@ public class ProyectoFinal
                     System.out.println("--------------------------------");
                     for(int i = 0; i <= myClients.size() - 1; i++)
                     {
-                        //System.out.println(myClients.get(i).getNombre());
                         myClients.get(i).displayAllInformation();
                         System.out.println("--------------------------------");
                     }
@@ -355,7 +354,7 @@ public class ProyectoFinal
             if(option < 1 || option > 6)
             {
                 cls();
-                System.out.println("Opcion no disponible");
+                System.out.println("Opcion no disponible\n");
             }
         }while(option > 6);
 
@@ -644,7 +643,7 @@ public class ProyectoFinal
             if(option < 1 || option > 6)
             {
                 cls();
-                System.out.println("Opcion no disponible");
+                System.out.println("Opcion no disponible\n");
             }
         }while(option > 6);
 
@@ -695,12 +694,126 @@ public class ProyectoFinal
             }
         }
 
-        selectProducto();
+        int nCliente;
+        int countResults = 0;
+
+        do{
+            cls();
+            switchOptionsClients(5);
+
+            System.out.println("\nIngrese el numero del cliente a seleccionar");
+            nCliente = Integer.parseInt(cn.nextLine());
+
+            for(int i = 0; i <= myClients.size() - 1; i++)
+            {
+                if(myClients.get(i).getNumeroCliente() == nCliente)
+                {
+                    cls();
+                    System.out.println("---------------------------------");
+                    myClients.get(i).displayAllInformation();
+                    countResults++;
+                    System.out.println("---------------------------------\n");
+                }
+            }
+            if(countResults == 0)
+            {
+                cls();
+                System.out.println("Cliente no encontrado...!\n");
+            }
+        }while(countResults == 0);
+
+        List<SeleccionArticulos> products = selectProducto();
     }
 
-    public static void selectProducto()
+    public static List<SeleccionArticulos> selectProducto()
     {
+        Scanner cn = new Scanner(System.in);
+        List<SeleccionArticulos> products = new ArrayList<SeleccionArticulos>();
 
+        int nArticulo;
+        String descripcion;
+        String descripcionTamanio;
+        String color;
+        String seccionBodega;
+        int numeroEstante;
+        int cantidadPedida;
+        int cantidadSurtida;
+        int seleccionarOtro = 0;
+
+        do{
+            int countResults = 0;
+            do{
+                cls();
+                switchOptionsProducts(5);
+                System.out.println("Ingrese el numero del articulo a seleccionar");
+                nArticulo = Integer.parseInt(cn.nextLine());
+
+                for(int i = 0; i <= myProducts.size() - 1; i++)
+                {
+                    if(myProducts.get(i).getNumeroArticulo() == nArticulo)
+                    {
+                        if(products.size() == 0)
+                        {
+                            cls();
+                            countResults++;
+                        }
+                        else
+                        {
+                            for(int j = 0; j <= products.size() - 1; j++)
+                            {
+                                if(myProducts.get(i).getNumeroArticulo() == products.get(j).getNumeroArticulo())
+                                {
+                                    countResults = 0;
+                                    System.out.println("Ya este producto esta seleccionado");
+                                }
+                                else
+                                {
+                                    cls();
+                                    countResults++;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if(countResults == 0)
+                {
+                    cls();
+                    System.out.println("Articulo no encontrado...!\n");
+                }
+            }while(countResults == 0);
+
+            System.out.println("El articulo seleccionado fue el " + nArticulo);
+
+            System.out.println("Ingrese la descripcion del articulo");
+            descripcion = cn.nextLine();
+
+            System.out.println("Ingrese la descripcion del tamaño del articulo");
+            descripcionTamanio = cn.nextLine();
+
+            System.out.println("Ingrese la descripcion del color del articulo");
+            color = cn.nextLine();
+
+            System.out.println("Ingrese la seccion de bodega del articulo");
+            seccionBodega = cn.nextLine();
+
+            System.out.println("Ingrese el numero de estante articulo");
+            numeroEstante = Integer.parseInt(cn.nextLine());
+
+            System.out.println("Ingrese la cantidad pedida del articulo");
+            cantidadPedida = Integer.parseInt(cn.nextLine());
+
+            System.out.println("Ingrese la cantidad surtida del articulo");
+            cantidadSurtida = Integer.parseInt(cn.nextLine());
+
+            products.add(new SeleccionArticulos(nArticulo, descripcion, descripcionTamanio, color, seccionBodega, numeroEstante, cantidadPedida, cantidadSurtida));
+
+            cls();
+            System.out.println("Deseas Seleccionar otro producto? (1-Si | 2-No)");
+            seleccionarOtro = Integer.parseInt(cn.nextLine());
+        }while(seleccionarOtro != 2);
+
+        return products;
     }
 
     public static void cls()
