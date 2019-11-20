@@ -21,8 +21,25 @@ public class Articulos
         return this.precio;
     }
 
+    public void setPrecio(double pPrecio)
+    {
+        this.precio = pPrecio;
+    }
+
+    public void setCantidadExistencia(int pCantidadExistencia)
+    {
+        this.cantidadExistencia = pCantidadExistencia;
+    }
+
     public int getCantidadExistencia()
     {
         return this.cantidadExistencia;
+    }
+
+    public void displayAllInformation()
+    {
+        System.out.println("# de Articulo           : " + this.numeroArticulo);
+        System.out.println("Precio                  : " + this.precio);
+        System.out.println("Cantidad en Existencia  : " + this.cantidadExistencia);
     }
 }

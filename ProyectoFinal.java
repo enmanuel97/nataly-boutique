@@ -6,6 +6,7 @@ import java.io.IOException;
 public class ProyectoFinal
 {
     public static List<Clientes> myClients = new ArrayList<Clientes>();
+    public static List<Articulos> myProducts = new ArrayList<>();
 
     public static void main(String[] args)
     {
@@ -24,10 +25,10 @@ public class ProyectoFinal
                 switchOptionsClients(printClientsMenu(true));
                 break;
             case 2:
-                System.out.println("Felicidades acabas de entrar al lugar de los articulos");
+                switchOptionsProducts(printProductsMenu(true));
                 break;
             case 3:
-                System.out.println("Felicidades acabas de entrar al lugar de los pedidos");
+                makeAnOrder();
                 break;
             case 4:
                 System.out.println("Gracias por utilizar nuestro servicio");
@@ -180,16 +181,20 @@ public class ProyectoFinal
             case 3://Modificar Cliente
                 if(myClients.size() > 0)
                 {
+                    cls();
                     int nClienteM;
                     int countResultsM = 0;
                     do{
                         System.out.println("Ingrese el numero del cliente a modificar");
-                        nClienteM = cn.nextInt();
+//                        nClienteM = cn.nextInt();
+                        nClienteM = Integer.parseInt(cn.nextLine());
 
                         for(int i = 0; i <= myClients.size() - 1; i++)
                         {
                             if(myClients.get(i).getNumeroCliente() == nClienteM)
                             {
+                                String nombreTemporal = myClients.get(i).getNombre();
+
                                 System.out.println("\nIngrese el nombre del cliente");
                                 myClients.get(i).setNombre(cn.nextLine());
 
@@ -201,7 +206,7 @@ public class ProyectoFinal
                                 countResultsM++;
 
                                 cls();
-                                System.out.println("Informacion del cliente "+myClients.get(i).getNombre() + " ha sido actualizada");
+                                System.out.println("Informacion del cliente "+ nombreTemporal + " ha sido actualizada");
                             }
                         }
                         if(countResultsM == 0)
@@ -210,6 +215,8 @@ public class ProyectoFinal
                             System.out.println("Cliente no encontrado...!\n");
                         }
                     }while(countResultsM == 0);
+
+                    switchOptionsClients(printClientsMenu(false));
                 }
                 else
                 {
@@ -353,6 +360,347 @@ public class ProyectoFinal
         }while(option > 6);
 
         return option;
+    }
+
+    public static void switchOptionsProducts(int opcion)
+    {
+        Scanner cn = new Scanner(System.in);
+        switch(opcion)
+        {
+            case 1://Crear Articulo
+                cls();
+                boolean validate = false;
+                int numeroArticulo;
+                double precio;
+                int cantidadExistencia;
+
+                do{
+                    System.out.println("Ingrese el numero del articulo");
+                    numeroArticulo = Integer.parseInt(cn.nextLine());
+
+                    if(myProducts.size() > 0)
+                    {
+                        for(int i = 0; i <= myProducts.size() - 1; i++)
+                        {
+                            if(myProducts.get(i).getNumeroArticulo() == numeroArticulo)
+                            {
+                                validate = true;
+                                cls();
+                                System.out.println("\nYa existe un articulo con este numero...!\n");
+                            }
+                            else
+                            {
+                                validate = false;
+                            }
+                        }
+                    }
+                }while(validate == true);
+
+                System.out.println("\nIngrese precio del articulo");
+                precio = Double.parseDouble(cn.nextLine());
+
+                System.out.println("\nIngrese la cantidad en existencia del articulo");
+                cantidadExistencia = Integer.parseInt(cn.nextLine());
+
+                myProducts.add(new Articulos(numeroArticulo, precio, cantidadExistencia));
+
+                cls();
+                System.out.println("Articulo Agregado correctamente");
+                int addOne;
+                do{
+                    System.out.println("Deseas agregar otro articulo? (1-Si | 2-No)");
+                    addOne = Integer.parseInt(cn.nextLine());
+                }while(addOne < 1 || addOne > 2);
+
+                if(addOne == 1)
+                {
+                    switchOptionsProducts(1);//agregar un articulo
+                }
+                else
+                {
+                    switchOptionsProducts(printProductsMenu(true));
+                }
+                break;
+
+            case 2://Consultar articulo
+                if(myProducts.size() > 0)
+                {
+                    int nArticulo;
+                    int countResults = 0;
+                    do{
+                        cls();
+                        System.out.println("Ingrese el numero del articulo a consultar");
+                        nArticulo = cn.nextInt();
+
+                        for(int i = 0; i <= myProducts.size() - 1; i++)
+                        {
+                            if(myProducts.get(i).getNumeroArticulo() == nArticulo)
+                            {
+                                cls();
+                                System.out.println("---------------------------------");
+                                myProducts.get(i).displayAllInformation();
+                                countResults++;
+                                System.out.println("---------------------------------\n");
+                            }
+                        }
+                        if(countResults == 0)
+                        {
+                            cls();
+                            System.out.println("Articulo no encontrado...!\n");
+                        }
+                    }while(countResults == 0);
+                }
+                else
+                {
+                    cls();
+                    System.out.println("No tienes ningun articulo agregado");
+                    int addOneC;
+                    do{
+                        System.out.println("Deseas agregar uno? (1-Si | 2-No)");
+                        addOneC = Integer.parseInt(cn.nextLine());
+                    }while(addOneC < 1 || addOneC > 2);
+
+                    if(addOneC == 1)
+                    {
+                        switchOptionsProducts(1);//agregar un articulo
+                    }
+                    else
+                    {
+                        switchOptionsProducts(printProductsMenu(true));
+                    }
+                }
+
+                switchOptionsProducts(printProductsMenu(false));
+                break;
+
+            case 3://Modificar articulo
+                if(myProducts.size() > 0)
+                {
+                    cls();
+                    int nProductM;
+                    int countResultsM = 0;
+                    do{
+                        System.out.println("Ingrese el numero del articulo a modificar");
+                        nProductM = Integer.parseInt(cn.nextLine());
+
+                        for(int i = 0; i <= myProducts.size() - 1; i++)
+                        {
+                            if(myProducts.get(i).getNumeroArticulo() == nProductM)
+                            {
+                                System.out.println("\nIngrese el precio del articulo");
+                                myProducts.get(i).setPrecio(Double.parseDouble(cn.nextLine()));
+
+                                System.out.println("\nIngrese la cantidad en existencia del articulo");
+                                myProducts.get(i).setCantidadExistencia(Integer.parseInt(cn.nextLine()));
+
+                                countResultsM++;
+
+                                cls();
+                                System.out.println("Informacion del articulo #"+ nProductM + " ha sido actualizada");
+                            }
+                        }
+                        if(countResultsM == 0)
+                        {
+                            cls();
+                            System.out.println("Articulo no encontrado...!\n");
+                        }
+                    }while(countResultsM == 0);
+
+                    switchOptionsProducts(printProductsMenu(false));
+                }
+                else
+                {
+                    cls();
+                    System.out.println("No tienes ningun articulo agregado");
+                    int addOneM;
+                    do{
+                        System.out.println("Deseas agregar uno? (1-Si | 2-No)");
+                        addOneM = Integer.parseInt(cn.nextLine());
+                    }while(addOneM < 1 || addOneM > 2);
+
+                    if(addOneM == 1)
+                    {
+                        switchOptionsProducts(1);//agregar un articulo
+                    }
+                    else
+                    {
+                        switchOptionsProducts(printProductsMenu(true));
+                    }
+                }
+                break;
+
+            case 4://Eliminar Cliente
+                if(myProducts.size() > 0)
+                {
+                    cls();
+                    int nProductD;
+                    int countResultD = 0;
+                    do{
+                        System.out.println("Ingrese el numero del articulo a eliminar");
+                        nProductD = cn.nextInt();
+
+                        for(int i = 0; i <= myProducts.size() - 1; i++)
+                        {
+                            if(myProducts.get(i).getNumeroArticulo() == nProductD)
+                            {
+                                myProducts.remove(i);
+                                countResultD++;
+                                cls();
+                                System.out.println("Articulo Eliminado\n");
+                            }
+                        }
+
+                        if(countResultD == 0)
+                        {
+                            cls();
+                            System.out.println("Articulo no encontrado...!\n");
+                        }
+                    }while(countResultD == 0);
+
+                }
+                else
+                {
+                    cls();
+                    System.out.println("No tienes ningun articulo agregado");
+                    int addOneE;
+                    do{
+                        System.out.println("Deseas agregar uno? (1-Si | 2-No)");
+                        addOneE = Integer.parseInt(cn.nextLine());
+                    }while(addOneE < 1 || addOneE > 2);
+
+                    if(addOneE == 1)
+                    {
+                        switchOptionsProducts(1);//agregar un producto
+                    }
+                    else
+                    {
+                        switchOptionsProducts(printProductsMenu(true));
+                    }
+                }
+
+                switchOptionsProducts(printProductsMenu(false));
+                break;
+
+            case 5://Consultar Todos los clientes
+                if(myProducts.size() > 0)
+                {
+                    cls();
+                    System.out.println("-------Todos mis articulos-------\n");
+                    System.out.println("--------------------------------");
+                    for(int i = 0; i <= myProducts.size() - 1; i++)
+                    {
+                        myProducts.get(i).displayAllInformation();
+                        System.out.println("--------------------------------");
+                    }
+                }
+                else
+                {
+                    cls();
+                    System.out.println("No tienes ningun articulo agregado");
+                    int addOneA;
+                    do{
+                        System.out.println("Deseas agregar uno? (1-Si | 2-No)");
+                        addOneA = Integer.parseInt(cn.nextLine());
+                    }while(addOneA < 1 || addOneA > 2);
+
+                    if(addOneA == 1)
+                    {
+                        switchOptionsProducts(1);//agregar un articulo
+                    }
+                    else
+                    {
+                        switchOptionsProducts(printProductsMenu(true));
+                    }
+                }
+                System.out.println();
+                switchOptionsProducts(printProductsMenu(false));
+                break;
+
+            case 6:
+                switchOptions(printMenu(true));
+                break;
+        }
+    }
+
+    public static int printProductsMenu(boolean clean)
+    {
+        if(clean == true)
+        {
+            cls();
+        }
+
+        Scanner cn = new Scanner(System.in);
+        int option = 0;
+        do {
+            System.out.println("----------Articulos-----------");
+            System.out.println("|1-Registrar Articulo        |");
+            System.out.println("|2-Consultar Articulo        |");
+            System.out.println("|3-Modificar Articulo        |");
+            System.out.println("|4-Eliminar Articulo         |");
+            System.out.println("|5-Ver todos los Articulo    |");
+            System.out.println("|6-Salir                     |");
+            System.out.println("------------------------------");
+            option = Integer.parseInt(cn.nextLine());;
+            if(option < 1 || option > 6)
+            {
+                cls();
+                System.out.println("Opcion no disponible");
+            }
+        }while(option > 6);
+
+        return option;
+    }
+
+    public static void makeAnOrder()
+    {
+        Scanner cn = new Scanner(System.in);
+
+        if(myClients.size() == 0)
+        {
+            cls();
+            System.out.println("No tienes ningun cliente agregado");
+            int addOneC;
+            do{
+                System.out.println("Deseas agregar uno? (1-Si | 2-No)");
+                addOneC = Integer.parseInt(cn.nextLine());
+            }while(addOneC < 1 || addOneC > 2);
+
+            if(addOneC == 1)
+            {
+                switchOptionsClients(1);//agregar un cliente
+            }
+            else
+            {
+                switchOptionsClients(printClientsMenu(true));
+            }
+        }
+
+        if(myProducts.size() == 0)
+        {
+            cls();
+            System.out.println("No tienes ningun articulo agregado");
+            int addOneE;
+            do{
+                System.out.println("Deseas agregar uno? (1-Si | 2-No)");
+                addOneE = Integer.parseInt(cn.nextLine());
+            }while(addOneE < 1 || addOneE > 2);
+
+            if(addOneE == 1)
+            {
+                switchOptionsProducts(1);//agregar un producto
+            }
+            else
+            {
+                switchOptionsProducts(printProductsMenu(true));
+            }
+        }
+
+        selectProducto();
+    }
+
+    public static void selectProducto()
+    {
+
     }
 
     public static void cls()
