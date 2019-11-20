@@ -86,24 +86,44 @@ public class ProyectoFinal
                             if(myClients.get(i).getNumeroCliente() == numeroCliente)
                             {
                                 validate = true;
-                                System.out.println("\nYa existe un cliente con este numero...!");
+                                cls();
+                                System.out.println("\nYa existe un cliente con este numero...!\n");
+                            }
+                            else
+                            {
+                                validate = false;
                             }
                         }
                     }
                 }while(validate == true);
 
-                System.out.println("Ingrese el nombre del cliente");
+                System.out.println("\nIngrese el nombre del cliente");
                 nombre = cn.nextLine();
 
-                System.out.println("Ingrese la direccion del cliente");
+                System.out.println("\nIngrese la direccion del cliente");
                 direccion = cn.nextLine();
 
-                System.out.println("Ingrese el telefono del cliente");
+                System.out.println("\nIngrese el telefono del cliente");
                 telefono = cn.nextLine();
 
                 myClients.add(new Clientes(numeroCliente, nombre, direccion, telefono));
 
-                switchOptionsClients(printClientsMenu(true));
+                cls();
+                System.out.println("Cliente Agregado correctamente");
+                int addOne;
+                do{
+                    System.out.println("Deseas agregar otro? (1-Si | 2-No)");
+                    addOne = Integer.parseInt(cn.nextLine());
+                }while(addOne < 1 || addOne > 2);
+
+                if(addOne == 1)
+                {
+                    switchOptionsClients(1);//agregar un cliente
+                }
+                else
+                {
+                    switchOptionsClients(printClientsMenu(true));
+                }
             break;
 
             case 2://Consultar Cliente
@@ -112,6 +132,7 @@ public class ProyectoFinal
                     int nCliente;
                     int countResults = 0;
                     do{
+                        cls();
                         System.out.println("Ingrese el numero del cliente a consultar");
                         nCliente = cn.nextInt();
 
@@ -119,13 +140,17 @@ public class ProyectoFinal
                         {
                             if(myClients.get(i).getNumeroCliente() == nCliente)
                             {
+                                cls();
+                                System.out.println("---------------------------------");
                                 myClients.get(i).displayAllInformation();
                                 countResults++;
+                                System.out.println("---------------------------------\n");
                             }
                         }
                         if(countResults == 0)
                         {
-                            System.out.println("Cliente no encontrado...!");
+                            cls();
+                            System.out.println("Cliente no encontrado...!\n");
                         }
                     }while(countResults == 0);
                 }
@@ -135,7 +160,7 @@ public class ProyectoFinal
                     System.out.println("No tienes ningun cliente agregado");
                     int addOneC;
                     do{
-                        System.out.println("Deseas Agregar uno? (1-Si | 2-No)");
+                        System.out.println("Deseas agregar uno? (1-Si | 2-No)");
                         addOneC = Integer.parseInt(cn.nextLine());
                     }while(addOneC < 1 || addOneC > 2);
 
@@ -165,19 +190,23 @@ public class ProyectoFinal
                         {
                             if(myClients.get(i).getNumeroCliente() == nClienteM)
                             {
-                                System.out.println("Ingrese el nombre del cliente");
-                                nombre = cn.nextLine();
+                                System.out.println("\nIngrese el nombre del cliente");
+                                myClients.get(i).setNombre(cn.nextLine());
 
-                                System.out.println("Ingrese la direccion del cliente");
-                                direccion = cn.nextLine();
+                                System.out.println("\nIngrese la direccion del cliente");
+                                myClients.get(i).setDireccion(cn.nextLine());
 
-                                System.out.println("Ingrese el telefono del cliente");
-                                telefono = cn.nextLine();
+                                System.out.println("\nIngrese el telefono del cliente");
+                                myClients.get(i).setTelefono(cn.nextLine());
                                 countResultsM++;
+
+                                cls();
+                                System.out.println("Informacion del cliente "+myClients.get(i).getNombre() + " ha sido actualizada");
                             }
                         }
                         if(countResultsM == 0)
                         {
+                            cls();
                             System.out.println("Cliente no encontrado...!\n");
                         }
                     }while(countResultsM == 0);
@@ -188,7 +217,7 @@ public class ProyectoFinal
                     System.out.println("No tienes ningun cliente agregado");
                     int addOneM;
                     do{
-                        System.out.println("Deseas Agregar uno? (1-Si | 2-No)");
+                        System.out.println("Deseas agregar uno? (1-Si | 2-No)");
                         addOneM = Integer.parseInt(cn.nextLine());
                     }while(addOneM < 1 || addOneM > 2);
 
@@ -206,6 +235,7 @@ public class ProyectoFinal
             case 4://Eliminar Cliente
                 if(myClients.size() > 0)
                 {
+                    cls();
                     int nClienteD;
                     int countResultD = 0;
                     do{
@@ -218,22 +248,26 @@ public class ProyectoFinal
                             {
                                 myClients.remove(i);
                                 countResultD++;
+                                cls();
+                                System.out.println("Cliente Eliminado\n");
                             }
                         }
 
                         if(countResultD == 0)
                         {
-                            System.out.println("Cliente no encontrado...!");
+                            cls();
+                            System.out.println("Cliente no encontrado...!\n");
                         }
                     }while(countResultD == 0);
 
-                }else
+                }
+                else
                 {
                     cls();
                     System.out.println("No tienes ningun cliente agregado");
                     int addOneE;
                     do{
-                        System.out.println("Deseas Agregar uno? (1-Si | 2-No)");
+                        System.out.println("Deseas agregar uno? (1-Si | 2-No)");
                         addOneE = Integer.parseInt(cn.nextLine());
                     }while(addOneE < 1 || addOneE > 2);
 
@@ -253,10 +287,14 @@ public class ProyectoFinal
             case 5://Consultar Todos los clientes
                 if(myClients.size() > 0)
                 {
-                    System.out.println("Todos mis clientes");
+                    cls();
+                    System.out.println("-------Todos mis clientes-------\n");
+                    System.out.println("--------------------------------");
                     for(int i = 0; i <= myClients.size() - 1; i++)
                     {
-                        System.out.println(myClients.get(i).getNombre());
+                        //System.out.println(myClients.get(i).getNombre());
+                        myClients.get(i).displayAllInformation();
+                        System.out.println("--------------------------------");
                     }
                 }
                 else
@@ -265,7 +303,7 @@ public class ProyectoFinal
                     System.out.println("No tienes ningun cliente agregado");
                     int addOneA;
                     do{
-                        System.out.println("Deseas Agregar uno? (1-Si | 2-No)");
+                        System.out.println("Deseas agregar uno? (1-Si | 2-No)");
                         addOneA = Integer.parseInt(cn.nextLine());
                     }while(addOneA < 1 || addOneA > 2);
 
@@ -278,7 +316,7 @@ public class ProyectoFinal
                         switchOptionsClients(printClientsMenu(true));
                     }
                 }
-
+                System.out.println();
                 switchOptionsClients(printClientsMenu(false));
             break;
 

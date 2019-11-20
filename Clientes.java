@@ -50,9 +50,9 @@ public class Clientes
 
     public void displayAllInformation()
     {
-        System.out.println("# de Cliente: " + this.numeroCliente);
-        System.out.println("Nombre: " + this.nombre);
-        System.out.println("Direccion: " + this.direccion);
-        System.out.println("Telefono: " + this.telefono);
+        System.out.println("# de Cliente    : " + this.numeroCliente);
+        System.out.println("Nombre          : " + this.nombre);
+        System.out.println("Direccion       : " + this.direccion);
+        System.out.println("Telefono        : " + this.telefono);
     }
 }
