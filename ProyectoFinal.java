@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -5,8 +6,10 @@ import java.io.IOException;
 
 public class ProyectoFinal
 {
+    static final String NOMBRE_EMPRESA = "Nataly'S Boutique";
     public static List<Clientes> myClients = new ArrayList<Clientes>();
     public static List<Articulos> myProducts = new ArrayList<Articulos>();
+    public static List<Pedidos> myOrders = new ArrayList<Pedidos>();
 
     public static void main(String[] args)
     {
@@ -22,15 +25,16 @@ public class ProyectoFinal
         switch(opcion)
         {
             case 1:
-                switchOptionsClients(printClientsMenu(true));
+                switchOptionsClients(printClientsMenu(true), false);
                 break;
             case 2:
-                switchOptionsProducts(printProductsMenu(true));
+                switchOptionsProducts(printProductsMenu(true), false);
                 break;
             case 3:
                 makeAnOrder();
                 break;
             case 4:
+                cls();
                 System.out.println("Gracias por utilizar nuestro servicio");
                 break;
         }
@@ -63,7 +67,7 @@ public class ProyectoFinal
         return option;
     }
 
-    public static void switchOptionsClients(int opcion)
+    public static void switchOptionsClients(int opcion, boolean useInOtherModule)
     {
         Scanner cn = new Scanner(System.in);
         switch(opcion)
@@ -119,11 +123,11 @@ public class ProyectoFinal
 
                 if(addOne == 1)
                 {
-                    switchOptionsClients(1);//agregar un cliente
+                    switchOptionsClients(1, false);//agregar un cliente
                 }
                 else
                 {
-                    switchOptionsClients(printClientsMenu(true));
+                    switchOptionsClients(printClientsMenu(true), false);
                 }
             break;
 
@@ -167,15 +171,15 @@ public class ProyectoFinal
 
                     if(addOneC == 1)
                     {
-                        switchOptionsClients(1);//agregar un cliente
+                        switchOptionsClients(1, false);//agregar un cliente
                     }
                     else
                     {
-                        switchOptionsClients(printClientsMenu(true));
+                        switchOptionsClients(printClientsMenu(true), false);
                     }
                 }
 
-                switchOptionsClients(printClientsMenu(false));
+                switchOptionsClients(printClientsMenu(false), false);
             break;
 
             case 3://Modificar Cliente
@@ -216,7 +220,7 @@ public class ProyectoFinal
                         }
                     }while(countResultsM == 0);
 
-                    switchOptionsClients(printClientsMenu(false));
+                    switchOptionsClients(printClientsMenu(false), false);
                 }
                 else
                 {
@@ -230,11 +234,11 @@ public class ProyectoFinal
 
                     if(addOneM == 1)
                     {
-                        switchOptionsClients(1);//agregar un cliente
+                        switchOptionsClients(1, false);//agregar un cliente
                     }
                     else
                     {
-                        switchOptionsClients(printClientsMenu(true));
+                        switchOptionsClients(printClientsMenu(true), false);
                     }
                 }
             break;
@@ -280,15 +284,15 @@ public class ProyectoFinal
 
                     if(addOneE == 1)
                     {
-                        switchOptionsClients(1);//agregar un cliente
+                        switchOptionsClients(1, false);//agregar un cliente
                     }
                     else
                     {
-                        switchOptionsClients(printClientsMenu(true));
+                        switchOptionsClients(printClientsMenu(true), false);
                     }
                 }
 
-                switchOptionsClients(printClientsMenu(false));
+                switchOptionsClients(printClientsMenu(false), false);
                 break;
 
             case 5://Consultar Todos los clientes
@@ -315,15 +319,18 @@ public class ProyectoFinal
 
                     if(addOneA == 1)
                     {
-                        switchOptionsClients(1);//agregar un cliente
+                        switchOptionsClients(1, false);//agregar un cliente
                     }
                     else
                     {
-                        switchOptionsClients(printClientsMenu(true));
+                        switchOptionsClients(printClientsMenu(true), false);
                     }
                 }
                 System.out.println();
-                switchOptionsClients(printClientsMenu(false));
+                if(useInOtherModule == false)
+                {
+                    switchOptionsClients(printClientsMenu(false), false);
+                }
             break;
 
             case 6:
@@ -361,7 +368,7 @@ public class ProyectoFinal
         return option;
     }
 
-    public static void switchOptionsProducts(int opcion)
+    public static void switchOptionsProducts(int opcion, boolean useInOtherModule)
     {
         Scanner cn = new Scanner(System.in);
         switch(opcion)
@@ -413,11 +420,11 @@ public class ProyectoFinal
 
                 if(addOne == 1)
                 {
-                    switchOptionsProducts(1);//agregar un articulo
+                    switchOptionsProducts(1, false);//agregar un articulo
                 }
                 else
                 {
-                    switchOptionsProducts(printProductsMenu(true));
+                    switchOptionsProducts(printProductsMenu(true), false);
                 }
                 break;
 
@@ -461,15 +468,15 @@ public class ProyectoFinal
 
                     if(addOneC == 1)
                     {
-                        switchOptionsProducts(1);//agregar un articulo
+                        switchOptionsProducts(1, false);//agregar un articulo
                     }
                     else
                     {
-                        switchOptionsProducts(printProductsMenu(true));
+                        switchOptionsProducts(printProductsMenu(true), false);
                     }
                 }
 
-                switchOptionsProducts(printProductsMenu(false));
+                switchOptionsProducts(printProductsMenu(false), false);
                 break;
 
             case 3://Modificar articulo
@@ -505,7 +512,7 @@ public class ProyectoFinal
                         }
                     }while(countResultsM == 0);
 
-                    switchOptionsProducts(printProductsMenu(false));
+                    switchOptionsProducts(printProductsMenu(false), false);
                 }
                 else
                 {
@@ -519,11 +526,11 @@ public class ProyectoFinal
 
                     if(addOneM == 1)
                     {
-                        switchOptionsProducts(1);//agregar un articulo
+                        switchOptionsProducts(1, false);//agregar un articulo
                     }
                     else
                     {
-                        switchOptionsProducts(printProductsMenu(true));
+                        switchOptionsProducts(printProductsMenu(true), false);
                     }
                 }
                 break;
@@ -569,15 +576,15 @@ public class ProyectoFinal
 
                     if(addOneE == 1)
                     {
-                        switchOptionsProducts(1);//agregar un producto
+                        switchOptionsProducts(1, false);//agregar un producto
                     }
                     else
                     {
-                        switchOptionsProducts(printProductsMenu(true));
+                        switchOptionsProducts(printProductsMenu(true), false);
                     }
                 }
 
-                switchOptionsProducts(printProductsMenu(false));
+                switchOptionsProducts(printProductsMenu(false), false);
                 break;
 
             case 5://Consultar Todos los clientes
@@ -604,15 +611,19 @@ public class ProyectoFinal
 
                     if(addOneA == 1)
                     {
-                        switchOptionsProducts(1);//agregar un articulo
+                        switchOptionsProducts(1, false);//agregar un articulo
                     }
                     else
                     {
-                        switchOptionsProducts(printProductsMenu(true));
+                        switchOptionsProducts(printProductsMenu(true), false);
                     }
                 }
+
                 System.out.println();
-                switchOptionsProducts(printProductsMenu(false));
+                if(useInOtherModule == false)
+                {
+                    switchOptionsProducts(printProductsMenu(false), false);
+                }
                 break;
 
             case 6:
@@ -666,11 +677,11 @@ public class ProyectoFinal
 
             if(addOneC == 1)
             {
-                switchOptionsClients(1);//agregar un cliente
+                switchOptionsClients(1, false);//agregar un cliente
             }
             else
             {
-                switchOptionsClients(printClientsMenu(true));
+                switchOptionsClients(printClientsMenu(true), false);
             }
         }
 
@@ -686,20 +697,24 @@ public class ProyectoFinal
 
             if(addOneE == 1)
             {
-                switchOptionsProducts(1);//agregar un producto
+                switchOptionsProducts(1, false);//agregar un producto
             }
             else
             {
-                switchOptionsProducts(printProductsMenu(true));
+                switchOptionsProducts(printProductsMenu(true), false);
             }
         }
 
         int nCliente;
+        String nombreCliente = "";
+        String direccionCliente = "";
+        String telefonoCliente = "";
+
         int countResults = 0;
 
         do{
             cls();
-            switchOptionsClients(5);
+            switchOptionsClients(5, true);
 
             System.out.println("\nIngrese el numero del cliente a seleccionar");
             nCliente = Integer.parseInt(cn.nextLine());
@@ -708,11 +723,10 @@ public class ProyectoFinal
             {
                 if(myClients.get(i).getNumeroCliente() == nCliente)
                 {
-                    cls();
-                    System.out.println("---------------------------------");
-                    myClients.get(i).displayAllInformation();
+                    nombreCliente       = myClients.get(i).getNombre();
+                    direccionCliente    = myClients.get(i).getDireccion();
+                    telefonoCliente     = myClients.get(i).getTelefono();
                     countResults++;
-                    System.out.println("---------------------------------\n");
                 }
             }
             if(countResults == 0)
@@ -723,6 +737,11 @@ public class ProyectoFinal
         }while(countResults == 0);
 
         List<SeleccionArticulos> products = selectProducto();
+        int total_productos = countAllProducts(products);
+        int numeroPedido    = myOrders.size()+1;
+        LocalDateTime currentDate = LocalDateTime.now();
+        myOrders.add(new Pedidos(numeroPedido, currentDate, nCliente, nombreCliente, direccionCliente, telefonoCliente, products, total_productos));
+        printInvoice(myOrders.get(myOrders.size()-1));
     }
 
     public static List<SeleccionArticulos> selectProducto()
@@ -744,7 +763,7 @@ public class ProyectoFinal
             int countResults = 0;
             do{
                 cls();
-                switchOptionsProducts(5);
+                switchOptionsProducts(5, true);
                 System.out.println("Ingrese el numero del articulo a seleccionar");
                 nArticulo = Integer.parseInt(cn.nextLine());
 
@@ -785,25 +804,25 @@ public class ProyectoFinal
 
             System.out.println("El articulo seleccionado fue el " + nArticulo);
 
-            System.out.println("Ingrese la descripcion del articulo");
+            System.out.println("\nIngrese la descripcion del articulo");
             descripcion = cn.nextLine();
 
-            System.out.println("Ingrese la descripcion del tamaño del articulo");
+            System.out.println("\nIngrese la descripcion del tamanio del articulo");
             descripcionTamanio = cn.nextLine();
 
-            System.out.println("Ingrese la descripcion del color del articulo");
+            System.out.println("\nIngrese la descripcion del color del articulo");
             color = cn.nextLine();
 
-            System.out.println("Ingrese la seccion de bodega del articulo");
+            System.out.println("\nIngrese la seccion de bodega del articulo");
             seccionBodega = cn.nextLine();
 
-            System.out.println("Ingrese el numero de estante articulo");
+            System.out.println("\nIngrese el numero de estante articulo");
             numeroEstante = Integer.parseInt(cn.nextLine());
 
-            System.out.println("Ingrese la cantidad pedida del articulo");
+            System.out.println("\nIngrese la cantidad pedida del articulo");
             cantidadPedida = Integer.parseInt(cn.nextLine());
 
-            System.out.println("Ingrese la cantidad surtida del articulo");
+            System.out.println("\nIngrese la cantidad surtida del articulo");
             cantidadSurtida = Integer.parseInt(cn.nextLine());
 
             products.add(new SeleccionArticulos(nArticulo, descripcion, descripcionTamanio, color, seccionBodega, numeroEstante, cantidadPedida, cantidadSurtida));
@@ -814,6 +833,48 @@ public class ProyectoFinal
         }while(seleccionarOtro != 2);
 
         return products;
+    }
+
+    public static int countAllProducts(List<SeleccionArticulos> products)
+    {
+        int total = 0;
+        for(int j = 0; j <= products.size() - 1; j++)
+        {
+            total += products.get(j).getCantidadSurtida();
+        }
+
+        return total;
+    }
+
+    public static void printInvoice(Pedidos miPedido)
+    {
+        cls();
+        System.out.println("---------------------------------------------------");
+        System.out.println(NOMBRE_EMPRESA);
+        System.out.println("Fecha: " + miPedido.getDate());
+        System.out.println("# Pedido: " + miPedido.getNumeroPedido());
+        System.out.println("# Cliente: " + miPedido.getNumeroCliente());
+        System.out.println("Nombre del Cliente: " + miPedido.getNombreCliente());
+        System.out.println("Direccion del Cliente: " + miPedido.getDireccionCliente());
+        System.out.println("Telefono del Cliente: " + miPedido.getTelefono());
+        /*Aqui van los datos de todos los articulos*/
+        System.out.println("****************************************************");
+        for (int i = 0; i < miPedido.getMisArticulos().size() - 1; i++)
+        {
+            System.out.println("Cantidad Surtida: " + miPedido.getMisArticulos().get(i).getCantidadSurtida());
+            System.out.println("Cantidad Pedida: " + miPedido.getMisArticulos().get(i).getCantidadPedida());
+            System.out.println("Seccion: " + miPedido.getMisArticulos().get(i).getSeccionBodega());
+            System.out.println("Numero de estante: " + miPedido.getMisArticulos().get(i).getNumeroEstante());
+            System.out.println("Numero de articulo: " + miPedido.getMisArticulos().get(i).getNumeroArticulo());
+            System.out.println("Descripcion: " + miPedido.getMisArticulos().get(i).getDescripcion());
+            System.out.println("Tamanio: " + miPedido.getMisArticulos().get(i).getDescripcionTamanio());
+            System.out.println("Color: " + miPedido.getMisArticulos().get(i).getColor());
+            System.out.println("------------------------------------------------");
+        }
+        System.out.println("****************************************************");
+        /*Aqui finaliza la */
+        System.out.println("Cantidad Total de articulos: " + miPedido.getCantidadArticulos());
+        System.out.println("---------------------------------------------------");
     }
 
     public static void cls()

@@ -25,4 +25,39 @@ public class SeleccionArticulos
     {
         return this.numeroArticulo;
     }
+
+    public int getNumeroEstante()
+    {
+        return this.numeroEstante;
+    }
+
+    public int getCantidadPedida()
+    {
+        return this.cantidadPedida;
+    }
+
+    public int getCantidadSurtida()
+    {
+        return this.cantidadSurtida;
+    }
+
+    public String getSeccionBodega()
+    {
+        return this.seccionBodega;
+    }
+
+    public String getDescripcion()
+    {
+        return this.descripcion;
+    }
+
+    public String getDescripcionTamanio()
+    {
+        return this.descripcionTamanio;
+    }
+
+    public String getColor()
+    {
+        return this.color;
+    }
 }

@@ -23,4 +23,44 @@ public class Pedidos
         this.misArticulos       = pMisArticulos;
         this.cantidadArticulos  = pCantidadArticulos;
     }
+
+    public int getNumeroPedido()
+    {
+        return this.numeroPedido;
+    }
+
+    public LocalDateTime getDate()
+    {
+        return currentDate;
+    }
+
+    public int getNumeroCliente()
+    {
+        return this.numeroCliente;
+    }
+
+    public String getNombreCliente()
+    {
+        return this.nombreCliente;
+    }
+
+    public String getDireccionCliente()
+    {
+        return this.direccionCliente;
+    }
+
+    public String getTelefono()
+    {
+        return this.telefono;
+    }
+
+    public List<SeleccionArticulos> getMisArticulos()
+    {
+        return this.misArticulos;
+    }
+
+    public int getCantidadArticulos()
+    {
+        return this.cantidadArticulos;
+    }
 }
