@@ -6,10 +6,10 @@ import java.io.IOException;
 
 public class ProyectoFinal
 {
-    static final String NOMBRE_EMPRESA = "Nataly'S Boutique";
-    public static List<Clientes> myClients = new ArrayList<Clientes>();
-    public static List<Articulos> myProducts = new ArrayList<Articulos>();
-    public static List<Pedidos> myOrders = new ArrayList<Pedidos>();
+    static final String NOMBRE_EMPRESA          = "Nataly'S Boutique";
+    public static List<Clientes> myClients      = new ArrayList<Clientes>();
+    public static List<Articulos> myProducts    = new ArrayList<Articulos>();
+    public static List<Pedidos> myOrders        = new ArrayList<Pedidos>();
 
     public static void main(String[] args)
     {
@@ -741,7 +741,10 @@ public class ProyectoFinal
         int numeroPedido    = myOrders.size()+1;
         LocalDateTime currentDate = LocalDateTime.now();
         myOrders.add(new Pedidos(numeroPedido, currentDate, nCliente, nombreCliente, direccionCliente, telefonoCliente, products, total_productos));
+        //System.out.println(myOrders.get(myOrders.size()-1).getMisArticulos().get(0).getNumeroArticulo());
         printInvoice(myOrders.get(myOrders.size()-1));
+
+        switchOptions(printMenu(false));
     }
 
     public static List<SeleccionArticulos> selectProducto()
@@ -827,7 +830,7 @@ public class ProyectoFinal
 
             products.add(new SeleccionArticulos(nArticulo, descripcion, descripcionTamanio, color, seccionBodega, numeroEstante, cantidadPedida, cantidadSurtida));
 
-            cls();
+            //cls();
             System.out.println("Deseas Seleccionar otro producto? (1-Si | 2-No)");
             seleccionarOtro = Integer.parseInt(cn.nextLine());
         }while(seleccionarOtro != 2);
@@ -857,9 +860,10 @@ public class ProyectoFinal
         System.out.println("Nombre del Cliente: " + miPedido.getNombreCliente());
         System.out.println("Direccion del Cliente: " + miPedido.getDireccionCliente());
         System.out.println("Telefono del Cliente: " + miPedido.getTelefono());
+
         /*Aqui van los datos de todos los articulos*/
-        System.out.println("****************************************************");
-        for (int i = 0; i < miPedido.getMisArticulos().size() - 1; i++)
+        System.out.println("\n***************************************************");
+        for (int i = 0; i <= miPedido.getMisArticulos().size() - 1; i++)
         {
             System.out.println("Cantidad Surtida: " + miPedido.getMisArticulos().get(i).getCantidadSurtida());
             System.out.println("Cantidad Pedida: " + miPedido.getMisArticulos().get(i).getCantidadPedida());
@@ -869,12 +873,12 @@ public class ProyectoFinal
             System.out.println("Descripcion: " + miPedido.getMisArticulos().get(i).getDescripcion());
             System.out.println("Tamanio: " + miPedido.getMisArticulos().get(i).getDescripcionTamanio());
             System.out.println("Color: " + miPedido.getMisArticulos().get(i).getColor());
-            System.out.println("------------------------------------------------");
+            System.out.println("---------------------------------------------------");
         }
-        System.out.println("****************************************************");
+        System.out.println("***************************************************\n");
         /*Aqui finaliza la */
         System.out.println("Cantidad Total de articulos: " + miPedido.getCantidadArticulos());
-        System.out.println("---------------------------------------------------");
+        System.out.println("---------------------------------------------------\n");
     }
 
     public static void cls()
