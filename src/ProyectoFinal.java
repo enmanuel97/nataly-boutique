@@ -16,6 +16,7 @@ public class ProyectoFinal
         System.out.println("######################################################################");
         System.out.println("             Proyecto Final de Lenguaje de Programacion 2            ");
         System.out.println("  Desarrollado por Jesus Enmanuel De La Cruz | Matricula: 100367458  ");
+        System.out.println("                       "+NOMBRE_EMPRESA+"                            ");
         System.out.println("######################################################################\n");
         switchOptions(printMenu(false));
     }
